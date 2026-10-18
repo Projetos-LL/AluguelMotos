@@ -115,10 +115,7 @@ export function VeiculosTab({
               {createLabel}
             </Button>
           </DialogTrigger>
-          <DialogContent
-            overlayClassName="cadastros-dialog-overlay"
-            className="cadastros-dialog sm:max-w-2xl"
-          >
+          <DialogContent className="cadastros-dialog-scroll flex flex-col sm:max-w-2xl">
             <DialogHeader>
               <DialogTitle>{createDialogTitle}</DialogTitle>
               <DialogDescription>{createDialogDescription}</DialogDescription>
@@ -148,10 +145,7 @@ export function VeiculosTab({
         </Dialog>
         {onEditOpenChange && onUpdate && onEditFormChange ? (
           <Dialog open={editOpen} onOpenChange={onEditOpenChange}>
-            <DialogContent
-              overlayClassName="cadastros-dialog-overlay"
-              className="cadastros-dialog sm:max-w-2xl"
-            >
+            <DialogContent className="cadastros-dialog-scroll flex flex-col sm:max-w-2xl">
               <DialogHeader>
                 <DialogTitle>{editDialogTitle}</DialogTitle>
                 <DialogDescription>{editDialogDescription}</DialogDescription>

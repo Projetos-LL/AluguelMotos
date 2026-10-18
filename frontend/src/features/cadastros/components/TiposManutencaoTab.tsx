@@ -83,10 +83,7 @@ export function TiposManutencaoTab({
               Novo Tipo
             </Button>
           </DialogTrigger>
-          <DialogContent
-            overlayClassName="cadastros-dialog-overlay"
-            className="cadastros-dialog sm:max-w-xl"
-          >
+          <DialogContent className="cadastros-dialog-scroll flex flex-col sm:max-w-xl">
             <DialogHeader>
               <DialogTitle>Cadastrar tipo de manutenção</DialogTitle>
               <DialogDescription>
@@ -145,10 +142,7 @@ export function TiposManutencaoTab({
           </DialogContent>
         </Dialog>
         <Dialog open={editOpen} onOpenChange={onEditOpenChange}>
-          <DialogContent
-            overlayClassName="cadastros-dialog-overlay"
-            className="cadastros-dialog sm:max-w-xl"
-          >
+          <DialogContent className="cadastros-dialog-scroll flex flex-col sm:max-w-xl">
             <DialogHeader>
               <DialogTitle>Editar tipo de manutenção</DialogTitle>
               <DialogDescription>

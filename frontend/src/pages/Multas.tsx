@@ -6,7 +6,7 @@ import { getErrorMessage } from "@/lib/errors";
 import { trpc } from "@/lib/trpc";
 import type { ContratoListItem, MotoListItem, MultaStatusInput, MultasListInput, PagamentoListItem } from "@/lib/trpc-types";
 import { PageHeaderCard } from "@/features/operacoes/components/PageHeaderCard";
-import { StatusFilterCard } from "@/features/operacoes/components/StatusFilterCard";
+import { FilterTabs, FilterSelectField } from "@/features/operacoes/components/FilterTabs";
 import { SummaryMetricCard } from "@/features/operacoes/components/SummaryMetricCard";
 import { CreateMultaDialog } from "@/features/operacoes/components/CreateMultaDialog";
 import { MultasTable } from "@/features/operacoes/components/MultasTable";
@@ -276,28 +276,70 @@ export default function Multas() {
         {selectedContratoId ? (
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-6">
             <SummaryMetricCard title="Caução do contrato" value={formatCurrencyBR(valorCaucao)} />
-            <SummaryMetricCard title="Pago fora da caução" value={formatCurrencyBR(totalPago)} toneClassName="text-green-600" />
-            <SummaryMetricCard title="Pendente" value={formatCurrencyBR(totalPendente)} toneClassName="text-yellow-600" />
-            <SummaryMetricCard title="Descontado da caução" value={formatCurrencyBR(totalDescontadoCaucao)} toneClassName="text-orange-600" />
-            <SummaryMetricCard title="Manutenção vinculada" value={formatCurrencyBR(totalManutencaoContrato)} toneClassName="text-amber-600" />
+            <SummaryMetricCard title="Pago fora da caução" value={formatCurrencyBR(totalPago)} toneClassName="text-green-600 dark:text-green-300" />
+            <SummaryMetricCard title="Pendente" value={formatCurrencyBR(totalPendente)} toneClassName="text-yellow-600 dark:text-yellow-300" />
+            <SummaryMetricCard title="Descontado da caução" value={formatCurrencyBR(totalDescontadoCaucao)} toneClassName="text-orange-600 dark:text-orange-300" />
+            <SummaryMetricCard title="Manutenção vinculada" value={formatCurrencyBR(totalManutencaoContrato)} toneClassName="text-amber-600 dark:text-amber-300" />
             <SummaryMetricCard
               title={saldoDevedorLocatario > 0 ? "Saldo devedor do locatário" : "Saldo previsto para devolver"}
               value={formatCurrencyBR(saldoDevedorLocatario > 0 ? saldoDevedorLocatario : saldoPrevistoDevolucao)}
-              toneClassName={saldoDevedorLocatario > 0 ? "text-red-600" : "text-blue-600"}
+              toneClassName={saldoDevedorLocatario > 0 ? "text-red-600 dark:text-red-300" : "text-blue-600 dark:text-blue-300"}
             />
           </div>
         ) : (
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-            <SummaryMetricCard title="Pago fora da caução" value={formatCurrencyBR(totalPago)} toneClassName="text-green-600" />
-            <SummaryMetricCard title="Pendente" value={formatCurrencyBR(totalPendente)} toneClassName="text-yellow-600" />
-            <SummaryMetricCard title="Descontado da caução" value={formatCurrencyBR(totalDescontadoCaucao)} toneClassName="text-orange-600" />
+            <SummaryMetricCard title="Pago fora da caução" value={formatCurrencyBR(totalPago)} toneClassName="text-green-600 dark:text-green-300" />
+            <SummaryMetricCard title="Pendente" value={formatCurrencyBR(totalPendente)} toneClassName="text-yellow-600 dark:text-yellow-300" />
+            <SummaryMetricCard title="Descontado da caução" value={formatCurrencyBR(totalDescontadoCaucao)} toneClassName="text-orange-600 dark:text-orange-300" />
             <SummaryMetricCard title="Ocorrências" value={String(multaResumoItems.length)} />
           </div>
         )}
 
-        <StatusFilterCard title="Contrato" value={contratoFilter} onValueChange={setContratoFilter} options={contratoFilterOptions} />
-        <StatusFilterCard title="Tipo" value={tipoFilter} onValueChange={setTipoFilter} options={multaTipoOptions} />
-        <StatusFilterCard title="Status" value={statusFilter} onValueChange={setStatusFilter} options={multaStatusOptions} />
+        <FilterTabs
+          title="Filtros de ocorrência"
+          description="Ajuste contrato, tipo e status para focar no que importa."
+          tabs={[
+            {
+              id: "contrato",
+              label: "Contrato",
+              content: (
+                <FilterSelectField
+                  label="Contrato"
+                  value={contratoFilter}
+                  options={contratoFilterOptions}
+                  placeholder="Selecione um contrato"
+                  onChange={(nextValue) => setContratoFilter(nextValue as ContratoFilterValue)}
+                />
+              ),
+            },
+            {
+              id: "tipo",
+              label: "Tipo",
+              content: (
+                <FilterSelectField
+                  label="Tipo"
+                  value={tipoFilter}
+                  options={multaTipoOptions}
+                  placeholder="Selecione um tipo"
+                  onChange={(nextValue) => setTipoFilter(nextValue)}
+                />
+              ),
+            },
+            {
+              id: "status",
+              label: "Status",
+              content: (
+                <FilterSelectField
+                  label="Status"
+                  value={statusFilter}
+                  options={multaStatusOptions}
+                  placeholder="Selecione um status"
+                  onChange={(nextValue) => setStatusFilter(nextValue)}
+                />
+              ),
+            },
+          ]}
+        />
 
         <MultasTable
           items={multaItems}

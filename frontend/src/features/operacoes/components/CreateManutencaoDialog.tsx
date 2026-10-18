@@ -209,8 +209,11 @@ export function CreateManutencaoDialog({
           <div>
             <label className="text-sm font-medium">Moto</label>
             <Select
-              value={selectedMotoId ? String(selectedMotoId) : undefined}
-              onValueChange={(value) => form.setValue("motoId", Number(value), { shouldValidate: true })}
+              value={selectedMotoId ? String(selectedMotoId) : ""}
+              onValueChange={(value) => {
+                if (!value) return;
+                form.setValue("motoId", Number(value), { shouldValidate: true });
+              }}
             >
               <SelectTrigger>
                 <SelectValue placeholder="Selecione uma moto" />

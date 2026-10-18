@@ -3,7 +3,6 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Loader2 } from "lucide-react";
 import type { ReactNode } from "react";
 import type { UseFormReturn } from "react-hook-form";
@@ -76,6 +75,9 @@ function formatCurrencyInput(value: number | string | undefined) {
     maximumFractionDigits: 2,
   });
 }
+
+const nativeSelectClassName =
+  "border-input focus-visible:border-ring focus-visible:ring-ring/50 dark:bg-input/30 h-9 w-full rounded-md border bg-transparent px-3 py-2 text-sm shadow-xs outline-none transition-[color,box-shadow] focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50";
 
 export function CreateContratoDialog({
   open,
@@ -159,26 +161,31 @@ export function CreateContratoDialog({
             {readonlyLocatarioLabel ? (
               <Input value={readonlyLocatarioLabel} readOnly className="mt-1" />
             ) : (
-              <Select
-                value={form.watch("locatarioId") ? String(form.watch("locatarioId")) : undefined}
-                onValueChange={(value) => form.setValue("locatarioId", Number(value), { shouldValidate: true })}
+              <select
+                value={form.watch("locatarioId") ? String(form.watch("locatarioId")) : ""}
+                onChange={(event) => {
+                  const value = event.target.value;
+                  if (!value) return;
+                  form.setValue("locatarioId", Number(value), {
+                    shouldValidate: true,
+                    shouldDirty: true,
+                  });
+                }}
+                className={nativeSelectClassName}
               >
-                <SelectTrigger>
-                  <SelectValue placeholder="Selecione um locatário" />
-                </SelectTrigger>
-                <SelectContent>
-                  {locatarios.length > 0 ? (
-                    locatarios.map((locatario) => (
-                      <SelectItem key={locatario.id} value={locatario.id.toString()}>
-                        {locatario.nome}
-                      </SelectItem>
-                    ))
-                  ) : (
-                    <div className="px-2 py-1.5 text-sm text-muted-foreground">Cadastre um locatário em Cadastros primeiro.</div>
-                  )}
-                </SelectContent>
-              </Select>
+                <option value="" disabled>
+                  Selecione um locatário
+                </option>
+                {locatarios.map((locatario) => (
+                  <option key={locatario.id} value={locatario.id.toString()}>
+                    {locatario.nome}
+                  </option>
+                ))}
+              </select>
             )}
+            {!readonlyLocatarioLabel && locatarios.length === 0 ? (
+              <p className="mt-1 text-sm text-muted-foreground">Cadastre um locatário em Cadastros primeiro.</p>
+            ) : null}
             {form.formState.errors.locatarioId ? (
               <p className="mt-1 text-sm text-red-500">{form.formState.errors.locatarioId.message?.toString()}</p>
             ) : null}
@@ -189,25 +196,27 @@ export function CreateContratoDialog({
             {readonlyVeiculoLabel ? (
               <Input value={readonlyVeiculoLabel} readOnly className="mt-1" />
             ) : (
-              <Select
-                value={form.watch("motoId") ? String(form.watch("motoId")) : undefined}
-                onValueChange={(value) => form.setValue("motoId", Number(value), { shouldValidate: true })}
+              <select
+                value={form.watch("motoId") ? String(form.watch("motoId")) : ""}
+                onChange={(event) => {
+                  const value = event.target.value;
+                  if (!value) return;
+                  form.setValue("motoId", Number(value), {
+                    shouldValidate: true,
+                    shouldDirty: true,
+                  });
+                }}
+                className={nativeSelectClassName}
               >
-                <SelectTrigger>
-                  <SelectValue placeholder="Selecione um veículo" />
-                </SelectTrigger>
-                <SelectContent>
-                  {veiculos.length > 0 ? (
-                    veiculos.map((veiculo) => (
-                      <SelectItem key={veiculo.id} value={veiculo.id.toString()}>
-                        {formatVeiculoLabel(veiculo)}
-                      </SelectItem>
-                    ))
-                  ) : (
-                    <div className="px-2 py-1.5 text-sm text-muted-foreground">Nenhum veículo disponível no momento.</div>
-                  )}
-                </SelectContent>
-              </Select>
+                <option value="" disabled>
+                  Selecione um veículo
+                </option>
+                {veiculos.map((veiculo) => (
+                  <option key={veiculo.id} value={veiculo.id.toString()}>
+                    {formatVeiculoLabel(veiculo)}
+                  </option>
+                ))}
+              </select>
             )}
             {form.formState.errors.motoId ? (
               <p className="mt-1 text-sm text-red-500">{form.formState.errors.motoId.message?.toString()}</p>

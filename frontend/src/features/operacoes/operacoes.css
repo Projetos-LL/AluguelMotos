@@ -266,6 +266,78 @@
   color: #991b1b;
 }
 
+.dark .operacoes-page-header {
+  background:
+    radial-gradient(circle at top left, color-mix(in oklab, var(--app-accent-soft) 70%, transparent), transparent 38%),
+    radial-gradient(circle at bottom right, color-mix(in oklab, var(--app-highlight-soft) 60%, transparent), transparent 36%),
+    linear-gradient(
+      145deg,
+      color-mix(in oklab, var(--app-surface-strong) 88%, black),
+      color-mix(in oklab, var(--app-surface) 92%, black)
+    );
+}
+
+.dark .operacoes-page-header::after {
+  background: linear-gradient(120deg, transparent 0%, rgba(255, 255, 255, 0.06) 32%, transparent 62%);
+}
+
+.dark .operacoes-page-header__stat {
+  background: color-mix(in oklab, var(--app-surface-strong) 86%, black);
+  border-color: color-mix(in oklab, var(--operacoes-border) 70%, black);
+}
+
+.dark .operacoes-section-card {
+  background: linear-gradient(
+    180deg,
+    color-mix(in oklab, var(--app-surface-strong) 86%, black),
+    color-mix(in oklab, var(--app-surface) 88%, black)
+  );
+  box-shadow: var(--app-shadow-strong);
+}
+
+.dark .operacoes-dialog {
+  background: color-mix(in oklab, var(--app-surface-strong) 88%, black);
+  border-color: color-mix(in oklab, var(--operacoes-border) 72%, black);
+}
+
+.dark .operacoes-filter-trigger {
+  border-color: color-mix(in oklab, var(--operacoes-border-strong) 82%, black);
+  background: color-mix(in oklab, var(--app-surface-strong) 90%, black);
+}
+
+.dark .operacoes-card-state {
+  border-color: rgba(148, 163, 184, 0.18);
+  background: linear-gradient(180deg, rgba(23, 30, 48, 0.9), rgba(18, 24, 39, 0.8));
+}
+
+.dark .operacoes-table-wrap {
+  border-color: color-mix(in oklab, var(--operacoes-border) 70%, black);
+  background: color-mix(in oklab, var(--app-surface-strong) 88%, black);
+}
+
+.dark .operacoes-table thead th {
+  background: color-mix(in oklab, var(--app-surface-strong) 86%, black);
+  border-bottom-color: rgba(148, 163, 184, 0.18);
+}
+
+.dark .operacoes-table tbody td {
+  border-bottom-color: rgba(148, 163, 184, 0.14);
+}
+
+.dark .operacoes-table tbody tr:hover {
+  background: rgba(84, 199, 180, 0.08);
+}
+
+.dark .operacoes-status-chip--success {
+  background: rgba(16, 185, 129, 0.18);
+  color: #6ee7b7;
+}
+
+.dark .operacoes-status-chip--danger {
+  background: rgba(239, 68, 68, 0.2);
+  color: #fca5a5;
+}
+
 @media (min-width: 960px) {
   .operacoes-page-shell {
     gap: 1.75rem;
@@ -368,5 +440,20 @@
     border-radius: 22px;
     background: #ffffff;
     box-shadow: 0 16px 34px rgba(15, 23, 42, 0.05);
+  }
+
+  .dark .operacoes-table tbody tr {
+    border-color: rgba(148, 163, 184, 0.18);
+    background: color-mix(in oklab, var(--app-surface-strong) 88%, black);
+    box-shadow: 0 16px 34px rgba(1, 6, 19, 0.4);
+  }
+
+  .dark .operacoes-table tbody td {
+    border-bottom-color: rgba(148, 163, 184, 0.14);
+  }
+
+  .dark .operacoes-table-empty {
+    background: color-mix(in oklab, var(--app-surface-strong) 86%, black);
+    box-shadow: 0 16px 34px rgba(1, 6, 19, 0.4);
   }
 }

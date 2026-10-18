@@ -88,10 +88,7 @@ export function LocadoresTab({
               {createLabel}
             </Button>
           </DialogTrigger>
-          <DialogContent
-            overlayClassName="cadastros-dialog-overlay"
-            className="cadastros-dialog sm:max-w-2xl"
-          >
+          <DialogContent className="cadastros-dialog-scroll flex flex-col">
             <DialogHeader>
               <DialogTitle>{createDialogTitle}</DialogTitle>
               <DialogDescription>{createDialogDescription}</DialogDescription>

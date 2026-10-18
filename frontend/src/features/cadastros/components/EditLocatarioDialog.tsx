@@ -27,10 +27,7 @@ export function EditLocatarioDialog({
 }: EditLocatarioDialogProps) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent
-        overlayClassName="cadastros-dialog-overlay"
-        className="cadastros-dialog sm:max-w-2xl"
-      >
+      <DialogContent className="cadastros-dialog-scroll flex flex-col sm:max-w-2xl">
         <DialogHeader>
           <DialogTitle>Editar Locatário</DialogTitle>
           <DialogDescription>Atualize os dados do locatário selecionado</DialogDescription>

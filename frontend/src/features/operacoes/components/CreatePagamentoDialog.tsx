@@ -67,8 +67,11 @@ export function CreatePagamentoDialog({
           <div>
             <label className="text-sm font-medium">Contrato</label>
             <Select
-              value={form.watch("contratoId") ? String(form.watch("contratoId")) : undefined}
-              onValueChange={(value) => form.setValue("contratoId", Number(value), { shouldValidate: true })}
+              value={form.watch("contratoId") ? String(form.watch("contratoId")) : ""}
+              onValueChange={(value) => {
+                if (!value) return;
+                form.setValue("contratoId", Number(value), { shouldValidate: true });
+              }}
             >
               <SelectTrigger>
                 <SelectValue placeholder="Opcional" />
@@ -89,8 +92,11 @@ export function CreatePagamentoDialog({
           <div>
             <label className="text-sm font-medium">Moto</label>
             <Select
-              value={form.watch("motoId") ? String(form.watch("motoId")) : undefined}
-              onValueChange={(value) => form.setValue("motoId", Number(value), { shouldValidate: true })}
+              value={form.watch("motoId") ? String(form.watch("motoId")) : ""}
+              onValueChange={(value) => {
+                if (!value) return;
+                form.setValue("motoId", Number(value), { shouldValidate: true });
+              }}
             >
               <SelectTrigger>
                 <SelectValue placeholder="Opcional" />

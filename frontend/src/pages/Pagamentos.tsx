@@ -9,9 +9,9 @@ import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 import { toast } from "sonner";
 import { CreatePagamentoDialog } from "@/features/operacoes/components/CreatePagamentoDialog";
+import { FilterTabs, FilterSelectField } from "@/features/operacoes/components/FilterTabs";
 import { PageHeaderCard } from "@/features/operacoes/components/PageHeaderCard";
 import { PagamentosTable } from "@/features/operacoes/components/PagamentosTable";
-import { StatusFilterCard } from "@/features/operacoes/components/StatusFilterCard";
 import { SummaryMetricCard } from "@/features/operacoes/components/SummaryMetricCard";
 import {
   pagamentoStatusOptions,
@@ -161,14 +161,44 @@ export default function Pagamentos() {
         </div>
 
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-          <SummaryMetricCard title="Total quitado" value={formatCurrencyBR(totalPago)} toneClassName="text-green-600" />
-          <SummaryMetricCard title="Em aberto" value={formatCurrencyBR(totalAberto)} toneClassName="text-yellow-600" />
-          <SummaryMetricCard title="Em atraso" value={formatCurrencyBR(totalAtrasado)} toneClassName="text-red-600" />
+          <SummaryMetricCard title="Total quitado" value={formatCurrencyBR(totalPago)} toneClassName="text-green-600 dark:text-green-300" />
+          <SummaryMetricCard title="Em aberto" value={formatCurrencyBR(totalAberto)} toneClassName="text-yellow-600 dark:text-yellow-300" />
+          <SummaryMetricCard title="Em atraso" value={formatCurrencyBR(totalAtrasado)} toneClassName="text-red-600 dark:text-red-300" />
           <SummaryMetricCard title="Lançamentos abertos" value={String(contasAbertas)} />
         </div>
 
-        <StatusFilterCard value={tipoFilter} onValueChange={setTipoFilter} options={pagamentoTipoOptions} />
-        <StatusFilterCard value={statusFilter} onValueChange={setStatusFilter} options={pagamentoStatusOptions} />
+        <FilterTabs
+          title="Filtros financeiros"
+          description="Altere rápido o tipo e o status dos lançamentos exibidos."
+          tabs={[
+            {
+              id: "tipo",
+              label: "Tipo",
+              content: (
+                <FilterSelectField
+                  label="Tipo"
+                  value={tipoFilter}
+                  options={pagamentoTipoOptions}
+                  placeholder="Selecione o tipo"
+                  onChange={(nextValue) => setTipoFilter(nextValue)}
+                />
+              ),
+            },
+            {
+              id: "status",
+              label: "Status",
+              content: (
+                <FilterSelectField
+                  label="Status"
+                  value={statusFilter}
+                  options={pagamentoStatusOptions}
+                  placeholder="Selecione o status"
+                  onChange={(nextValue) => setStatusFilter(nextValue)}
+                />
+              ),
+            },
+          ]}
+        />
 
         <PagamentosTable
           items={pagamentoItems}

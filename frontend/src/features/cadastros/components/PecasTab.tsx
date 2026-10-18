@@ -79,10 +79,7 @@ export function PecasTab({
               Nova Peça
             </Button>
           </DialogTrigger>
-          <DialogContent
-            overlayClassName="cadastros-dialog-overlay"
-            className="cadastros-dialog sm:max-w-xl"
-          >
+          <DialogContent className="cadastros-dialog-scroll flex flex-col sm:max-w-xl">
             <DialogHeader>
               <DialogTitle>Cadastrar peça</DialogTitle>
               <DialogDescription>
@@ -129,10 +126,7 @@ export function PecasTab({
         </Dialog>
 
         <Dialog open={editOpen} onOpenChange={onEditOpenChange}>
-          <DialogContent
-            overlayClassName="cadastros-dialog-overlay"
-            className="cadastros-dialog sm:max-w-xl"
-          >
+          <DialogContent className="cadastros-dialog-scroll flex flex-col sm:max-w-xl">
             <DialogHeader>
               <DialogTitle>Editar peça</DialogTitle>
               <DialogDescription>

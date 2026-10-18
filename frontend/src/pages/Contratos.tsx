@@ -40,6 +40,7 @@ export default function Contratos() {
   const [renewingContrato, setRenewingContrato] = useState<ContratoRecord | null>(null);
   const [closingContrato, setClosingContrato] = useState<ContratoRecord | null>(null);
   const [closingDate, setClosingDate] = useState("");
+  const [closeError, setCloseError] = useState("");
   const [statusFilter, setStatusFilter] = useState<ContratoStatusFilter>("ativo");
 
   const contratosFilters: ContratosListInput = { status: statusFilter === "all" ? undefined : statusFilter };
@@ -301,6 +302,8 @@ export default function Contratos() {
   const onCloseSubmit = async () => {
     if (!closingContrato || !closingDate) return;
 
+    setCloseError("");
+
     const dataInicio = new Date(closingContrato.dataInicio);
     const dataFimReal = new Date(closingDate);
     const dataFimOriginal = new Date(closingContrato.dataFim);
@@ -329,7 +332,9 @@ export default function Contratos() {
       setCloseOpen(false);
       await Promise.all([contratos.refetch(), veiculos.refetch()]);
     } catch (error) {
-      toast.error(getErrorMessage(error, "Erro ao encerrar contrato"));
+      const message = getErrorMessage(error, "Erro ao encerrar contrato");
+      setCloseError(message);
+      toast.error(message);
     }
   };
 
@@ -483,6 +488,7 @@ export default function Contratos() {
             if (!nextOpen) {
               setClosingContrato(null);
               setClosingDate("");
+              setCloseError("");
             }
           }}
           dataFim={closingDate}
@@ -491,6 +497,7 @@ export default function Contratos() {
           isSubmitting={updateContrato.isPending}
           onDataFimChange={setClosingDate}
           onSubmit={onCloseSubmit}
+          error={closeError}
         />
 
         <StatusFilterCard value={statusFilter} onValueChange={setStatusFilter} options={contratoStatusOptions} />

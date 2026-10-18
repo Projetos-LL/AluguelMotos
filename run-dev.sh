@@ -98,7 +98,7 @@ trap cleanup INT TERM EXIT
 echo "Iniciando backend em $BACKEND_DIR na porta $BACKEND_PORT"
 (
 	cd "$BACKEND_DIR"
-	PORT="$BACKEND_PORT" npm run dev
+	PORT="$BACKEND_PORT" SKIP_BACKEND_VITE=true npm run dev
 ) &
 BACKEND_PID=$!
 

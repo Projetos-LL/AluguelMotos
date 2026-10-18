@@ -12,6 +12,7 @@ interface CloseContratoDialogProps {
   isSubmitting: boolean;
   onDataFimChange: (value: string) => void;
   onSubmit: () => void | Promise<void>;
+  error?: string;
 }
 
 export function CloseContratoDialog({
@@ -23,6 +24,7 @@ export function CloseContratoDialog({
   isSubmitting,
   onDataFimChange,
   onSubmit,
+  error,
 }: CloseContratoDialogProps) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -50,6 +52,9 @@ export function CloseContratoDialog({
               max={maxDate}
               onChange={(event) => onDataFimChange(event.target.value)}
             />
+            {error ? (
+              <p className="mt-2 text-sm text-red-500">{error}</p>
+            ) : null}
           </div>
 
           <Button type="submit" disabled={isSubmitting || !dataFim} className="w-full">
